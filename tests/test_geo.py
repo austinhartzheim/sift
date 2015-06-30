@@ -32,3 +32,14 @@ class TestGeoList(unittest.TestCase):
         node = sift.geo.GeoNode(0, 0)
         self.geolist.add(node)
         self.assertEqual(len(self.geolist), 1)
+
+    def test_add_shorted_insertion(self):
+        '''
+        Test that the add method maintains sorted order by latitude.
+        '''
+        n1 = sift.geo.GeoNode(1, 0)
+        n2 = sift.geo.GeoNode(0, 1)
+        self.geolist.add(n1)
+        self.geolist.add(n2)
+        self.assertIs(self.geolist[0], n2)
+        self.assertIs(self.geolist[1], n1)

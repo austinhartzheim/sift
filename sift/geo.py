@@ -53,7 +53,7 @@ class GeoList(GeoContainer):
         '''
         index = 0
         while index < len(self.nodes):
-            if self.access_lat(node) < self.access_lng(self.nodes[index]):
+            if self.access_lat(node) < self.access_lat(self.nodes[index]):
                 self.nodes.insert(index, node)
                 break
             index += 1
@@ -61,3 +61,9 @@ class GeoList(GeoContainer):
 
     def __len__(self):
         return len(self.nodes)
+
+    def __iter__(self):
+        return iter(self.nodes)
+
+    def __getitem__(self, index):
+        return self.nodes[index]
