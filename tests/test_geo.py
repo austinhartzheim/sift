@@ -17,3 +17,18 @@ class TestGeoNode(unittest.TestCase):
         n2 = sift.geo.GeoNode(1, 1)
         self.assertEqual(n1.distance(n2), math.sqrt(2))
 
+
+class TestGeoList(unittest.TestCase):
+    '''
+    Test the sift.geo.GeoList class.
+    '''
+    def setUp(self):
+        self.geolist = sift.geo.GeoList(lambda n: n.lat, lambda n: n.lng)
+
+    def test_add_empty_list(self):
+        '''
+        Test that the add method properly inserts into an empty list.
+        '''
+        node = sift.geo.GeoNode(0, 0)
+        self.geolist.add(node)
+        self.assertEqual(len(self.geolist), 1)

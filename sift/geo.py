@@ -58,3 +58,6 @@ class GeoList(GeoContainer):
                 break
             index += 1
         self.nodes.append(node)
+
+    def __len__(self):
+        return len(self.nodes)
