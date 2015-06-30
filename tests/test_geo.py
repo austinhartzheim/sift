@@ -43,3 +43,22 @@ class TestGeoList(unittest.TestCase):
         self.geolist.add(n2)
         self.assertIs(self.geolist[0], n2)
         self.assertIs(self.geolist[1], n1)
+
+    def test_iter_length(self):
+        '''
+        Test that calling iter() on a GeoList object will result in an
+        iterable object with the correct number of iterations.
+        '''
+        ITERATION_COUNT = 3
+
+        node = sift.geo.GeoNode(0, 0)
+        for x in range(0, ITERATION_COUNT):
+            self.geolist.add(node)
+        iterable = iter(self.geolist)
+        
+        count = 0
+        for each in iterable:
+            self.assertIs(each, node)
+            count += 1
+        self.assertEqual(count, ITERATION_COUNT)
+
