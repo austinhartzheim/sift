@@ -56,6 +56,11 @@ class GeoList(GeoContainer):
             if self.access_lat(node) < self.access_lat(self.nodes[index]):
                 self.nodes.insert(index, node)
                 break
+            elif self.access_lat(node) == self.access_lat(self.nodes[index]):
+                if self.access_lng(node) < self.access_lng(self.nodes[index]):
+                    self.nodes.insert(index, node)
+                    break
+
             index += 1
         self.nodes.append(node)
 

@@ -33,7 +33,7 @@ class TestGeoList(unittest.TestCase):
         self.geolist.add(node)
         self.assertEqual(len(self.geolist), 1)
 
-    def test_add_shorted_insertion(self):
+    def test_add_sorted_lat_insertion(self):
         '''
         Test that the add method maintains sorted order by latitude.
         '''
@@ -44,6 +44,17 @@ class TestGeoList(unittest.TestCase):
         self.assertIs(self.geolist[0], n2)
         self.assertIs(self.geolist[1], n1)
 
+    def test_add_sorted_lng_insertion(self):
+        n1 = sift.geo.GeoNode(0, 0)
+        n2 = sift.geo.GeoNode(3, 2)
+        n3 = sift.geo.GeoNode(3, 1)
+        self.geolist.add(n1)
+        self.geolist.add(n2)
+        self.geolist.add(n3)
+        self.assertIs(self.geolist[0], n1)
+        self.assertIs(self.geolist[1], n3)
+        self.assertIs(self.geolist[2], n2)
+
     def test_iter_length(self):
         '''
         Test that calling iter() on a GeoList object will result in an
@@ -52,13 +63,12 @@ class TestGeoList(unittest.TestCase):
         ITERATION_COUNT = 3
 
         node = sift.geo.GeoNode(0, 0)
-        for x in range(0, ITERATION_COUNT):
+        for _ in range(0, ITERATION_COUNT):
             self.geolist.add(node)
         iterable = iter(self.geolist)
-        
+
         count = 0
         for each in iterable:
             self.assertIs(each, node)
             count += 1
         self.assertEqual(count, ITERATION_COUNT)
-
