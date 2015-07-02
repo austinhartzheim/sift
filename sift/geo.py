@@ -80,14 +80,10 @@ class GeoList(GeoContainer):
         tl, tu, br, bd = box
 
         # TODO: optimize
-        ret = []
         for node in self.nodes:
             if (node.lat <= tu and node.lng >= tl and
                 node.lat >= bd and node.lng <= br):
                 yield node
-
-
-
 
     def __len__(self):
         return len(self.nodes)

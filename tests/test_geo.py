@@ -55,6 +55,27 @@ class TestGeoList(unittest.TestCase):
         self.assertIs(self.geolist[1], n3)
         self.assertIs(self.geolist[2], n2)
 
+    def text_box(self):
+        '''
+        Test that the box method correctly returns a generator that,
+        upon iteration, yields all nodes that are inside the given
+        box (inclusive).
+        '''
+        n1 = sift.geo.GeoNode(0, 0)
+        n2 = sift.geo.GeoNode(1, 1)
+        n3 = sift.geo.GeoNode(2, 2)
+        n4 = sift.geo.GeoNode(3, 3)
+        self.geolist.add(n1)
+        self.geolist.add(n2)
+        self.geolist.add(n3)
+        self.geolist.add(n4)
+
+        nodes = [node for node in self.geolist.box((1, 2.5, 2.5, 1))]
+        self.assertIn(n2, nodes)
+        self.assertIn(n3, nodes)
+        self.assertNotIn(n1, nodes)
+        self.assertNotIn(n4, nodes)
+
     def test_iter_length(self):
         '''
         Test that calling iter() on a GeoList object will result in an
