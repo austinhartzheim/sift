@@ -64,6 +64,31 @@ class GeoList(GeoContainer):
             index += 1
         self.nodes.append(node)
 
+    def box(self, box):
+        '''
+        Select nodes from the list that exist inside (inclusive) the
+        given box.
+
+        :param tuple box: The coordinates, a and b, that describe the
+          top-left and bottom-right points of the box as follows::
+
+              (a.lat, a.lng, b.lat, b.lng)
+
+        :return: a `generator` yielding each node that is inside the
+          specified box (inclusive).
+        '''
+        tl, tu, br, bd = box
+
+        # TODO: optimize
+        ret = []
+        for node in self.nodes:
+            if (node.lat <= tu and node.lng >= tl and
+                node.lat >= bd and node.lng <= br):
+                yield node
+
+
+
+
     def __len__(self):
         return len(self.nodes)
 
